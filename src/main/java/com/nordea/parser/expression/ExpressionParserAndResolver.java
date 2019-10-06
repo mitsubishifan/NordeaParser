@@ -16,6 +16,11 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+/**
+ * class gets the particular expression (just after root node) and process it
+ * return value is resolved value represented in BigDecimal
+ */
+
 public class ExpressionParserAndResolver {
 
     public BigDecimal parseAndResplveExpression(final StringBuilder xmlContent, final String rootNodeName)
@@ -30,6 +35,7 @@ public class ExpressionParserAndResolver {
         return resolveExpression(parsedNode, rootNodeName);
     }
 
+    // recursively called to resolve expression tree
     private BigDecimal resolveExpression(final DefaultMutableTreeNode expressionTree, final String rootNodeNanme)
             throws ParserConfigurationException {
         IOperation mainOperation = OperationFactory.getOperation(rootNodeNanme);

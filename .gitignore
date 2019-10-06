@@ -1,0 +1,9 @@
+doc/
+hooks/
+.idea/
+config
+description
+info/
+target/
+FETCH_HEAD
+HEAD

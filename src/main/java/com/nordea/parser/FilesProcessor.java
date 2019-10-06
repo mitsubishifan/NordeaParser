@@ -25,18 +25,30 @@ public class FilesProcessor {
         this.outputFile = outputFile;
     }
 
-    public void resolve() {
+    public boolean resolve() {
         try (InputStream inputStream = new FileInputStream(inputFile); OutputStream out = new FileOutputStream(outputFile)) {
             out.write("<expressions>\r\n".getBytes());
             iterateOverExpressions(inputStream, out);
             out.write("</expressions>".getBytes());
         } catch (IOException fnf) {
             System.out.println("IOException occured: " + fnf.getLocalizedMessage());
+            return false;
         } catch (XMLStreamException xse) {
             System.out.println("XML Stram Exception occured: "+ xse.getLocalizedMessage());
+            return false;
         }
+        return true;
     }
 
+
+    /**
+     * method uses SAX parser to build particular expression XML just after root node
+     * SAX used to get file partially and process only one main expression at a time
+     *
+     * @param input input file stream
+     * @param out output file stream
+     * @throws XMLStreamException
+     */
     private void iterateOverExpressions(final InputStream input, final OutputStream out) throws XMLStreamException {
         XMLInputFactory inputFactory = XMLInputFactory.newInstance();
         XMLEventReader eventReader = inputFactory.createXMLEventReader(input);
